@@ -4,7 +4,7 @@
   'use strict';
 
   // Set this to your GitHub repo URL to show a "source code" link in the footer.
-  const REPO_URL = '';
+  const REPO_URL = 'https://github.com/Harnoor001/cart-abandonment-analysis';
 
   const $ = (s) => document.querySelector(s);
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();

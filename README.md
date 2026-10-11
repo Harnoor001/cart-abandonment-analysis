@@ -8,7 +8,7 @@
 reaches it walks away**, which is **€1.2M of baskets a year**. Two fixes on that one screen (show fees and promo eligibility
 earlier) are worth an estimated **€196K–€652K in GMV per year**.
 
-**🔗 Live interactive dashboard: [hungrly-checkout-leaks.vercel.app](https://hungrly-checkout-leaks.vercel.app)** · Power BI report: [`data/powerbi/Hungrly_Checkout_Funnel.pbix`](data/powerbi/Hungrly_Checkout_Funnel.pbix)
+**🔗 Live interactive dashboard: [hungrly-checkout-leaks.vercel.app](https://hungrly-checkout-leaks.vercel.app)** · Code: [GitHub](https://github.com/Harnoor001/cart-abandonment-analysis) · Power BI report: [`data/powerbi/Hungrly_Checkout_Funnel.pbix`](data/powerbi/Hungrly_Checkout_Funnel.pbix)
 
 | 185K | 58.2% | 28.3% | €1.2M / yr | 4.6× |
 |:---:|:---:|:---:|:---:|:---:|
