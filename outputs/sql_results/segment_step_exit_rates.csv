@@ -1,0 +1,127 @@
+dimension,segment,step_number,step_label,reached,exited,exit_rate_pct
+Category,Alcohol & Drinks,2,Add to Cart,9844,1017,10.3
+Category,Alcohol & Drinks,3,Cart View,8827,1078,12.2
+Category,Alcohol & Drinks,4,Checkout Start,7749,760,9.8
+Category,Alcohol & Drinks,5,Delivery Details,6989,825,11.8
+Category,Alcohol & Drinks,6,Order Review,6164,1428,23.2
+Category,Alcohol & Drinks,7,Payment,4736,453,9.6
+Category,Desserts & Coffee,2,Add to Cart,13629,1418,10.4
+Category,Desserts & Coffee,3,Cart View,12211,1588,13.0
+Category,Desserts & Coffee,4,Checkout Start,10623,1079,10.2
+Category,Desserts & Coffee,5,Delivery Details,9544,657,6.9
+Category,Desserts & Coffee,6,Order Review,8887,4644,52.3
+Category,Desserts & Coffee,7,Payment,4243,421,9.9
+Category,Fast Food,2,Add to Cart,36435,3820,10.5
+Category,Fast Food,3,Cart View,32615,4169,12.8
+Category,Fast Food,4,Checkout Start,28446,2698,9.5
+Category,Fast Food,5,Delivery Details,25748,2196,8.5
+Category,Fast Food,6,Order Review,23552,8820,37.4
+Category,Fast Food,7,Payment,14732,1445,9.8
+Category,Groceries,2,Add to Cart,25877,2709,10.5
+Category,Groceries,3,Cart View,23168,3065,13.2
+Category,Groceries,4,Checkout Start,20103,1996,9.9
+Category,Groceries,5,Delivery Details,18107,1798,9.9
+Category,Groceries,6,Order Review,16309,2391,14.7
+Category,Groceries,7,Payment,13918,1354,9.7
+Category,Pharmacy & Beauty,2,Add to Cart,11061,1123,10.2
+Category,Pharmacy & Beauty,3,Cart View,9938,1273,12.8
+Category,Pharmacy & Beauty,4,Checkout Start,8665,884,10.2
+Category,Pharmacy & Beauty,5,Delivery Details,7781,613,7.9
+Category,Pharmacy & Beauty,6,Order Review,7168,2057,28.7
+Category,Pharmacy & Beauty,7,Payment,5111,441,8.6
+Category,Restaurants,2,Add to Cart,29532,3088,10.5
+Category,Restaurants,3,Cart View,26444,3422,12.9
+Category,Restaurants,4,Checkout Start,23022,2289,9.9
+Category,Restaurants,5,Delivery Details,20733,1588,7.7
+Category,Restaurants,6,Order Review,19145,3614,18.9
+Category,Restaurants,7,Payment,15531,1383,8.9
+Customer Type,New,2,Add to Cart,31673,3339,10.5
+Customer Type,New,3,Cart View,28334,4303,15.2
+Customer Type,New,4,Checkout Start,24031,4435,18.5
+Customer Type,New,5,Delivery Details,19596,1713,8.7
+Customer Type,New,6,Order Review,17883,5660,31.7
+Customer Type,New,7,Payment,12223,1122,9.2
+Customer Type,Returning,2,Add to Cart,94705,9836,10.4
+Customer Type,Returning,3,Cart View,84869,10292,12.1
+Customer Type,Returning,4,Checkout Start,74577,5271,7.1
+Customer Type,Returning,5,Delivery Details,69306,5964,8.6
+Customer Type,Returning,6,Order Review,63342,17294,27.3
+Customer Type,Returning,7,Payment,46048,4375,9.5
+Device,Desktop,2,Add to Cart,12913,1558,12.1
+Device,Desktop,3,Cart View,11355,1488,13.1
+Device,Desktop,4,Checkout Start,9867,1287,13.0
+Device,Desktop,5,Delivery Details,8580,772,9.0
+Device,Desktop,6,Order Review,7808,2223,28.5
+Device,Desktop,7,Payment,5585,486,8.7
+Device,Mobile,2,Add to Cart,109595,11245,10.3
+Device,Mobile,3,Cart View,98350,12636,12.8
+Device,Mobile,4,Checkout Start,85714,8161,9.5
+Device,Mobile,5,Delivery Details,77553,6657,8.6
+Device,Mobile,6,Order Review,70896,20045,28.3
+Device,Mobile,7,Payment,50851,4882,9.6
+Device,Tablet,2,Add to Cart,3870,372,9.6
+Device,Tablet,3,Cart View,3498,471,13.5
+Device,Tablet,4,Checkout Start,3027,258,8.5
+Device,Tablet,5,Delivery Details,2769,248,9.0
+Device,Tablet,6,Order Review,2521,686,27.2
+Device,Tablet,7,Payment,1835,129,7.0
+Platform,Android App,2,Add to Cart,37365,3570,9.6
+Platform,Android App,3,Cart View,33795,4306,12.7
+Platform,Android App,4,Checkout Start,29489,2386,8.1
+Platform,Android App,5,Delivery Details,27103,2278,8.4
+Platform,Android App,6,Order Review,24825,6947,28.0
+Platform,Android App,7,Payment,17878,1243,7.0
+Platform,Desktop Web,2,Add to Cart,12913,1558,12.1
+Platform,Desktop Web,3,Cart View,11355,1488,13.1
+Platform,Desktop Web,4,Checkout Start,9867,1287,13.0
+Platform,Desktop Web,5,Delivery Details,8580,772,9.0
+Platform,Desktop Web,6,Order Review,7808,2223,28.5
+Platform,Desktop Web,7,Payment,5585,486,8.7
+Platform,Mobile Web,2,Add to Cart,28830,3526,12.2
+Platform,Mobile Web,3,Cart View,25304,3225,12.7
+Platform,Mobile Web,4,Checkout Start,22079,2973,13.5
+Platform,Mobile Web,5,Delivery Details,19106,1687,8.8
+Platform,Mobile Web,6,Order Review,17419,4902,28.1
+Platform,Mobile Web,7,Payment,12517,2277,18.2
+Platform,Tablet App,2,Add to Cart,3870,372,9.6
+Platform,Tablet App,3,Cart View,3498,471,13.5
+Platform,Tablet App,4,Checkout Start,3027,258,8.5
+Platform,Tablet App,5,Delivery Details,2769,248,9.0
+Platform,Tablet App,6,Order Review,2521,686,27.2
+Platform,Tablet App,7,Payment,1835,129,7.0
+Platform,iOS App,2,Add to Cart,43400,4149,9.6
+Platform,iOS App,3,Cart View,39251,5105,13.0
+Platform,iOS App,4,Checkout Start,34146,2802,8.2
+Platform,iOS App,5,Delivery Details,31344,2692,8.6
+Platform,iOS App,6,Order Review,28652,8196,28.6
+Platform,iOS App,7,Payment,20456,1362,6.7
+Time of Day,1. Morning (05-10),2,Add to Cart,12245,1274,10.4
+Time of Day,1. Morning (05-10),3,Cart View,10971,1457,13.3
+Time of Day,1. Morning (05-10),4,Checkout Start,9514,905,9.5
+Time of Day,1. Morning (05-10),5,Delivery Details,8609,631,7.3
+Time of Day,1. Morning (05-10),6,Order Review,7978,2116,26.5
+Time of Day,1. Morning (05-10),7,Payment,5862,537,9.2
+Time of Day,2. Lunch (11-14),2,Add to Cart,32666,3446,10.5
+Time of Day,2. Lunch (11-14),3,Cart View,29220,3636,12.4
+Time of Day,2. Lunch (11-14),4,Checkout Start,25584,2485,9.7
+Time of Day,2. Lunch (11-14),5,Delivery Details,23099,1682,7.3
+Time of Day,2. Lunch (11-14),6,Order Review,21417,5878,27.4
+Time of Day,2. Lunch (11-14),7,Payment,15539,1454,9.4
+Time of Day,3. Afternoon (15-17),2,Add to Cart,17340,1767,10.2
+Time of Day,3. Afternoon (15-17),3,Cart View,15573,2030,13.0
+Time of Day,3. Afternoon (15-17),4,Checkout Start,13543,1336,9.9
+Time of Day,3. Afternoon (15-17),5,Delivery Details,12207,920,7.5
+Time of Day,3. Afternoon (15-17),6,Order Review,11287,3056,27.1
+Time of Day,3. Afternoon (15-17),7,Payment,8231,746,9.1
+Time of Day,4. Dinner (18-22),2,Add to Cart,54561,5706,10.5
+Time of Day,4. Dinner (18-22),3,Cart View,48855,6345,13.0
+Time of Day,4. Dinner (18-22),4,Checkout Start,42510,4281,10.1
+Time of Day,4. Dinner (18-22),5,Delivery Details,38229,3183,8.3
+Time of Day,4. Dinner (18-22),6,Order Review,35046,9802,28.0
+Time of Day,4. Dinner (18-22),7,Payment,25244,2435,9.6
+Time of Day,5. Late Night (23-04),2,Add to Cart,9566,982,10.3
+Time of Day,5. Late Night (23-04),3,Cart View,8584,1127,13.1
+Time of Day,5. Late Night (23-04),4,Checkout Start,7457,699,9.4
+Time of Day,5. Late Night (23-04),5,Delivery Details,6758,1261,18.7
+Time of Day,5. Late Night (23-04),6,Order Review,5497,2102,38.2
+Time of Day,5. Late Night (23-04),7,Payment,3395,325,9.6

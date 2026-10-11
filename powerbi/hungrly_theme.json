@@ -1,0 +1,38 @@
+{
+  "name": "Hungrly Checkout Analytics",
+  "dataColors": ["#2A78D6", "#EB6834", "#1BAF7A", "#EDA100", "#E87BA4", "#008300", "#4A3AA7", "#E34948"],
+  "background": "#FCFCFB",
+  "foreground": "#0B0B0B",
+  "tableAccent": "#2A78D6",
+  "good": "#0CA30C",
+  "neutral": "#FAB219",
+  "bad": "#D03B3B",
+  "maximum": "#0D366B",
+  "center": "#6DA7EC",
+  "minimum": "#F2F7FD",
+  "textClasses": {
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 28, "color": "#0B0B0B" },
+    "title":   { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#0B0B0B" },
+    "header":  { "fontFace": "Segoe UI Semibold", "fontSize": 11, "color": "#0B0B0B" },
+    "label":   { "fontFace": "Segoe UI",          "fontSize": 10, "color": "#52514E" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E1E0D9" } }, "radius": 8 }],
+        "dropShadow": [{ "show": false }],
+        "visualHeader": [{ "show": true, "foreground": { "solid": { "color": "#898781" } } }],
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#0B0B0B" } }, "fontSize": 12, "alignment": "left" }],
+        "valueAxis": [{ "gridlineColor": { "solid": { "color": "#E1E0D9" } }, "gridlineStyle": "solid", "labelColor": { "solid": { "color": "#52514E" } } }],
+        "categoryAxis": [{ "labelColor": { "solid": { "color": "#52514E" } } }],
+        "legend": [{ "labelColor": { "solid": { "color": "#52514E" } }, "position": "Top" }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F6F5F1" } }, "transparency": 0 }]
+      }
+    }
+  }
+}

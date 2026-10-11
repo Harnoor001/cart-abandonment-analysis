@@ -1,0 +1,7 @@
+step_number,exit_step,abandoned_carts,share_of_all_abandonments_pct,abandoned_gmv_eur,avg_basket_total_eur,rank_by_volume
+2,Add to Cart,13175,17.9,432931.0,32.86,3
+3,Cart View,14595,19.8,485109.0,33.24,2
+4,Checkout Start,9706,13.2,321004.0,33.07,4
+5,Delivery Details,7677,10.4,260148.0,33.89,5
+6,Order Review,22954,31.2,603559.0,26.29,1
+7,Payment,5497,7.5,194961.0,35.47,6

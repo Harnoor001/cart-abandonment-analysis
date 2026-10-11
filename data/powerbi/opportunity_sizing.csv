@@ -1,0 +1,6 @@
+opportunity,step,problem_segment,benchmark_segment,sessions_affected_6m,segment_exit_pct,benchmark_exit_pct,excess_exit_pp,relative_risk,downstream_cvr_pct,avg_order_value_eur,orders_recoverable_6m_full,gmv_annual_full_closure_eur,gmv_annual_30pct_closure_eur
+Fee shock,Order Review,Fees >= 15% of basket,Fees < 10% of basket,42452,40.2,11.6,28.6,3.46,90.6,22.65,11000.0,497030.0,149109.0
+Failed promo codes,Order Review,Promo code failed,No promo entered,8614,62.1,25.7,36.4,2.41,90.9,27.34,2847.0,155249.0,46575.0
+Mobile-web payment friction,Payment,Mobile Web,iOS + Android App,12517,18.2,6.8,11.4,2.68,100.0,35.14,1426.0,99984.0,29995.0
+Long delivery ETAs,Delivery Details,ETA 50+ min,ETA < 40 min,12388,16.7,6.5,10.2,2.55,63.4,36.68,798.0,58351.0,17505.0
+Forced sign-up (no guest checkout),Checkout Start,New users on web,New users on app,7841,32.8,11.5,21.2,2.84,52.7,33.0,877.0,57761.0,17328.0

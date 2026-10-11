@@ -1,0 +1,9 @@
+step_number,step_label,event_name,is_checkout_step
+1,Store / Menu View,store_view,False
+2,Add to Cart,add_to_cart,True
+3,Cart View,cart_view,True
+4,Checkout Start,checkout_start,True
+5,Delivery Details,delivery_details,True
+6,Order Review,order_review,True
+7,Payment,payment,True
+8,Order Placed,order_placed,True

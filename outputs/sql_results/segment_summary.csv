@@ -1,0 +1,22 @@
+dimension,segment,carts,abandoned_carts,cart_abandonment_pct,index_vs_overall,abandoned_gmv_eur,avg_basket_eur
+Category,Desserts & Coffee,13629,9807,72.0,124.0,178144.0,18.61
+Category,Fast Food,36435,23148,63.5,109.0,499767.0,22.32
+Category,Pharmacy & Beauty,11061,6391,57.8,99.0,191758.0,30.62
+Category,Alcohol & Drinks,9844,5561,56.5,97.0,218282.0,39.54
+Category,Restaurants,29532,15384,52.1,89.0,547606.0,36.04
+Category,Groceries,25877,13313,51.4,88.0,662156.0,50.11
+Customer Type,New,31673,20572,65.0,112.0,648005.0,32.9
+Customer Type,Returning,94705,53032,56.0,96.0,1649708.0,32.88
+Device,Desktop,12913,7814,60.5,104.0,244128.0,32.84
+Device,Mobile,109595,63626,58.1,100.0,1986538.0,32.89
+Device,Tablet,3870,2164,55.9,96.0,67047.0,32.73
+Platform,Mobile Web,28830,18590,64.5,111.0,590212.0,32.95
+Platform,Desktop Web,12913,7814,60.5,104.0,244128.0,32.84
+Platform,iOS App,43400,24306,56.0,96.0,754894.0,32.87
+Platform,Tablet App,3870,2164,55.9,96.0,67047.0,32.73
+Platform,Android App,37365,20730,55.5,95.0,641433.0,32.88
+Time of Day,5. Late Night (23-04),9566,6496,67.9,117.0,187088.0,30.0
+Time of Day,4. Dinner (18-22),54561,31752,58.2,100.0,1002392.0,33.22
+Time of Day,2. Lunch (11-14),32666,18581,56.9,98.0,578256.0,32.96
+Time of Day,3. Afternoon (15-17),17340,9855,56.8,98.0,310121.0,32.98
+Time of Day,1. Morning (05-10),12245,6920,56.5,97.0,219856.0,33.28

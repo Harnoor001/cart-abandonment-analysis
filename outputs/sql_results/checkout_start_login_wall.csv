@@ -1,0 +1,5 @@
+channel,customer_type,reached_checkout_start,checkout_start_exit_pct
+Web,New,7841,32.8
+App,New,16190,11.5
+App,Returning,50472,7.1
+Web,Returning,24105,7.0

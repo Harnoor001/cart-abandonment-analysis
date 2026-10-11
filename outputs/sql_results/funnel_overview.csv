@@ -1,0 +1,9 @@
+step_number,step_label,sessions_reached,prev_step_sessions,step_conversion_pct,users_lost,step_dropoff_pct,pct_of_all_sessions
+1,Store / Menu View,185000,,,,,100.0
+2,Add to Cart,126378,185000.0,68.3,58622.0,31.7,68.3
+3,Cart View,113203,126378.0,89.6,13175.0,10.4,61.2
+4,Checkout Start,98608,113203.0,87.1,14595.0,12.9,53.3
+5,Delivery Details,88902,98608.0,90.2,9706.0,9.8,48.1
+6,Order Review,81225,88902.0,91.4,7677.0,8.6,43.9
+7,Payment,58271,81225.0,71.7,22954.0,28.3,31.5
+8,Order Placed,52774,58271.0,90.6,5497.0,9.4,28.5

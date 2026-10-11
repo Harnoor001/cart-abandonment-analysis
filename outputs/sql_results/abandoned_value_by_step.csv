@@ -1,0 +1,7 @@
+exit_step,step_number,abandoned_carts,abandoned_gmv_6m_eur,abandoned_gmv_annualised_eur,share_of_abandoned_gmv_pct
+Order Review,6,22954,603559.0,1203821.0,26.3
+Cart View,3,14595,485109.0,967567.0,21.1
+Add to Cart,2,13175,432931.0,863496.0,18.8
+Checkout Start,4,9706,321004.0,640254.0,14.0
+Delivery Details,5,7677,260148.0,518875.0,11.3
+Payment,7,5497,194961.0,388857.0,8.5

@@ -1,0 +1,9 @@
+step_number,event_name,step_label
+1,store_view,Store / Menu View
+2,add_to_cart,Add to Cart
+3,cart_view,Cart View
+4,checkout_start,Checkout Start
+5,delivery_details,Delivery Details
+6,order_review,Order Review
+7,payment,Payment
+8,order_placed,Order Placed

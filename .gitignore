@@ -1,0 +1,13 @@
+# Large, fully reproducible artefacts: rebuild with `python run_pipeline.py`
+data/hungrly.db
+data/raw/events.csv
+data/powerbi/fact_sessions.csv
+data/powerbi/fact_step_reach.csv
+
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+.venv/
+
+# local tooling
+.claude/

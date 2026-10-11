@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hungrly Checkout Leaks · Cart Abandonment Analysis</title>
+<meta name="description" content="Product analytics case study: where 185K food-delivery sessions drop out of checkout, why, and what each fix is worth. SQL · Python · Power BI.">
+<meta property="og:title" content="Where checkout breaks, and what it's worth to fix">
+<meta property="og:description" content="28% of users leave at Order Review, the first screen that shows the real price. A cart abandonment case study with SQL, Python and Power BI.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Crect x='7' y='8' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='14' width='13' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='20' width='7' height='4' rx='2' fill='%23eb6834'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>
+  try { const t = localStorage.getItem('hx-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#answer">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--blue)"/><rect x="7" y="8" width="18" height="4" rx="2" fill="#fff"/><rect x="7" y="14" width="13" height="4" rx="2" fill="#fff"/><rect x="7" y="20" width="7" height="4" rx="2" fill="var(--orange)"/></svg>
+      <span>Checkout leaks</span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#funnel">Funnel</a><a href="#segments">Segments</a><a href="#why">Root cause</a><a href="#impact">Impact</a><a href="#plan">Plan</a>
+    </nav>
+    <button class="theme" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 0 1-9.54-4.4A5.4 5.4 0 0 1 13.36 3.1C12.92 3.04 12.46 3 12 3z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap" id="answer">
+    <p class="eyebrow">Product analytics case study · SQL · Python · Power BI</p>
+    <h1>Where checkout breaks, and what it's worth to fix</h1>
+    <p class="lead" id="lead">Loading the analysis…</p>
+    <div class="kpis" id="kpis" aria-live="polite"></div>
+    <p class="fine">Hungrly is a fictional European food &amp; grocery delivery app. The data is synthetic: 185,000 sessions and 833,000 events from 1 Apr to 30 Sep 2026, built to mirror real checkout behaviour. Every figure on this page is computed by the project's SQL and Python pipeline.</p>
+  </section>
+
+  <section class="wrap block" id="funnel">
+    <div class="sec-head">
+      <p class="kicker">01 · Where users leave</p>
+      <h2>One screen loses more users than any other step in checkout</h2>
+      <p class="sec-sub">Order Review is the first screen that shows the full price: delivery, service and small-order fees, and whether the promo code worked.</p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <div class="card-head">
+          <div><h3>Checkout funnel</h3><p class="note">Sessions reaching each step. Right: share lost since the previous step.</p></div>
+          <label class="select"><span class="sr">Filter funnel by segment</span><select id="funnel-filter"></select></label>
+        </div>
+        <div class="chart" id="funnel-chart" style="min-height:300px"></div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <div><h3>Abandoned carts by exit screen</h3><p class="note">The screen users were on when they left.</p></div>
+          <div class="seg" role="group" aria-label="Measure" id="exit-toggle">
+            <button type="button" aria-pressed="false" data-v="carts">Carts</button><button type="button" aria-pressed="true" data-v="value">€ / year</button>
+          </div>
+        </div>
+        <div class="chart" id="exit-chart" style="min-height:300px"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap block" id="segments">
+    <div class="sec-head">
+      <p class="kicker">02 · Who leaves</p>
+      <h2>Mobile vs laptop is the wrong cut: app vs mobile web is the right one</h2>
+      <p class="sec-sub" id="seg-sub"></p>
+    </div>
+    <article class="card">
+      <div class="card-head">
+        <div><h3>Exit rate by screen</h3><p class="note">Share of users who left from each screen, of those who reached it.</p></div>
+        <div class="seg" role="group" aria-label="Segment by" id="dim-tabs"></div>
+      </div>
+      <div class="heat-wrap"><div class="heat" id="heat"></div></div>
+    </article>
+    <div class="grid two" style="margin-top:var(--gap)">
+      <article class="card">
+        <h3>Carts and abandonment by hour</h3>
+        <p class="note">After 23:00 delivery estimates jump and surge fees apply.</p>
+        <div class="chart" id="hour-chart" style="min-height:300px"></div>
+      </article>
+      <article class="card">
+        <h3>Payment exits by platform and method</h3>
+        <p class="note">Card payments on mobile web go through a 3-D Secure redirect and there is no Apple / Google Pay.</p>
+        <div class="table-wrap"><table class="tbl" id="pay-table"></table></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap block" id="why">
+    <div class="sec-head">
+      <p class="kicker">03 · Why they leave at Order Review</p>
+      <h2>Fee shock and broken promo promises</h2>
+      <p class="sec-sub">Users decide on a basket, then see fees they didn't expect or learn their discount doesn't apply.</p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>Below €15, exit climbs steeply</h3>
+        <p class="note">Order Review exit rate by basket subtotal (€1 bins, 95% CI band). Baskets under €15 pay a small-order fee of up to €4.</p>
+        <div class="chart" id="basket-chart" style="min-height:280px"></div>
+      </article>
+      <article class="card">
+        <h3>Exit rises with fees as a share of the basket</h3>
+        <p class="note">Order Review exit rate by total fees ÷ basket subtotal.</p>
+        <div class="chart" id="fee-chart" style="min-height:280px"></div>
+      </article>
+      <article class="card">
+        <h3>A failed promo code at the last screen</h3>
+        <p class="note">Order Review exit rate by promo-code outcome.</p>
+        <div class="chart" id="promo-chart" style="min-height:260px"></div>
+      </article>
+      <article class="card">
+        <h3>What drives the exit, controlling for everything else</h3>
+        <p class="note">Logistic regression on users who reached Order Review. Odds ratios with 95% CI; right of 1× means more likely to leave.</p>
+        <div class="chart" id="driver-chart" style="min-height:260px"></div>
+      </article>
+    </div>
+    <aside class="callout" id="confound"></aside>
+  </section>
+
+  <section class="wrap block" id="impact">
+    <div class="sec-head">
+      <p class="kicker">04 · What it's worth</p>
+      <h2>Recoverable GMV per fix</h2>
+      <p class="sec-sub">(Problem segment exit rate − healthy benchmark) × users affected × downstream conversion × average order value, annualised.</p>
+    </div>
+    <article class="card">
+      <div class="impact-top">
+        <div>
+          <label for="gap" class="slider-label">Share of each gap the fix closes: <b id="gap-out">30%</b></label>
+          <input type="range" id="gap" min="0" max="100" step="5" value="30">
+          <p class="note">30% is the planning case. 100% is the ceiling: problem users behave like the benchmark group.</p>
+        </div>
+        <div class="impact-total"><span class="note">All 5 fixes, per year</span><b id="gap-total">—</b><span class="note" id="gap-orders"></span></div>
+      </div>
+      <div class="chart" id="opp-chart" style="min-height:260px"></div>
+      <div class="table-wrap"><table class="tbl" id="opp-table"></table></div>
+    </article>
+  </section>
+
+  <section class="wrap block" id="plan">
+    <div class="sec-head">
+      <p class="kicker">05 · What to do</p>
+      <h2>Recommendations for the product team</h2>
+      <p class="sec-sub">Ranked by value and effort. The first two share one root cause and one screen: users discover the real price at the last moment.</p>
+    </div>
+    <div class="grid two">
+      <ol class="recs card" id="recs">
+        <li><b>Show the all-in price on the cart screen</b> with a nudge: “Add €3.20 more to skip the small-order fee”. <span>Fee shock · Medium effort</span></li>
+        <li><b>Validate promo codes in the cart</b> and show min-spend progress: “€4.20 more to unlock 20% off”. <span>Failed promos · Low effort</span></li>
+        <li><b>Turn on Apple Pay / Google Pay for mobile web</b>, with inline 3-D Secure. <span>Payment friction · Medium effort</span></li>
+        <li><b>Show the delivery estimate on the store page</b>; offer scheduled delivery late at night. <span>Long ETAs · Low effort</span></li>
+        <li><b>Guest checkout for new web users</b>, creating the account after the order. <span>Forced sign-up · Medium effort</span></li>
+      </ol>
+      <article class="card">
+        <h3>Prove it: A/B test for fix #1</h3>
+        <p class="note" id="ab-note"></p>
+        <dl class="ab">
+          <dt>Primary metric</dt><dd>Cart → order conversion. It catches exits that just move to an earlier screen.</dd>
+          <dt>Secondary</dt><dd>Order Review exit rate, AOV, share of baskets just above €15</dd>
+          <dt>Guardrails</dt><dd>Fee revenue per order, Cart → Checkout Start rate, support contacts</dd>
+        </dl>
+        <div class="table-wrap"><table class="tbl" id="ab-table"></table></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap block method" id="method">
+    <h2>How this was built</h2>
+    <ol class="pipeline">
+      <li><b>Data</b><span>Python generator: 185K sessions, 8-step funnel, fees, promos, ETAs</span></li>
+      <li><b>SQL</b><span>SQLite schema, an analysis view and 15 queries (CTEs, window functions)</span></li>
+      <li><b>Python</b><span>pandas, statsmodels: χ² and z-tests, logistic regression, power analysis</span></li>
+      <li><b>Power BI</b><span>Star schema, 34 DAX measures, field parameters, what-if slider</span></li>
+      <li><b>Web</b><span>This page: static HTML + D3, data exported from the pipeline</span></li>
+    </ol>
+    <p class="fine">Limitations: the data is synthetic and the analysis is observational. Sizing is in GMV, not profit; multiply by take rate for net revenue. The A/B test is how causality gets proven. <span id="repo-link"></span></p>
+    <p class="fine" id="stamp"></p>
+  </section>
+</main>
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

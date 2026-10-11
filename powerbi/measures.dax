@@ -1,0 +1,201 @@
+// =====================================================================
+// Hungrly Checkout Funnel: DAX measures
+// Paste each measure into a dedicated "_Measures" table
+// (Home > Enter data > name it _Measures > Load, then New measure).
+//
+// Model (see POWERBI_BUILD_GUIDE.md):
+//   dim_date[date]            1 ──< *  fact_sessions[session_date]
+//   fact_sessions[session_id] 1 ──< *  fact_step_reach[session_id]
+//   dim_step[step_number]     1 ──< *  fact_step_reach[step_number]
+// =====================================================================
+
+
+// ---------- Core volume -------------------------------------------------
+
+Sessions =
+COUNTROWS ( fact_sessions )
+
+Carts =
+CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 2 )
+
+Orders =
+CALCULATE ( [Sessions], fact_sessions[converted] = 1 )
+
+Abandoned Carts =
+[Carts] - [Orders]
+
+Session Conversion % =
+DIVIDE ( [Orders], [Sessions] )
+
+Cart Abandonment % =
+DIVIDE ( [Abandoned Carts], [Carts] )
+
+
+// ---------- Money --------------------------------------------------------
+
+GMV =
+CALCULATE ( SUM ( fact_sessions[order_total] ), fact_sessions[converted] = 1 )
+
+AOV =
+DIVIDE ( [GMV], [Orders] )
+
+Abandoned Basket Value =
+SUM ( fact_sessions[abandoned_value] )
+
+Days in Period =
+DATEDIFF ( MIN ( fact_sessions[session_date] ), MAX ( fact_sessions[session_date] ), DAY ) + 1
+
+Abandoned Basket Value (Annualised) =
+DIVIDE ( [Abandoned Basket Value] * 365, [Days in Period] )
+
+
+// ---------- Funnel (use with dim_step[step_label] on the axis) -----------
+
+Users Reached Step =
+DISTINCTCOUNT ( fact_step_reach[session_id] )
+
+Users Reached Previous Step =
+VAR _step = SELECTEDVALUE ( dim_step[step_number] )
+RETURN
+    IF (
+        _step > 1,
+        CALCULATE (
+            [Users Reached Step],
+            REMOVEFILTERS ( dim_step ),
+            fact_step_reach[step_number] = _step - 1
+        )
+    )
+
+Step Conversion % =
+DIVIDE ( [Users Reached Step], [Users Reached Previous Step] )
+
+Step Drop-off % =
+IF ( NOT ISBLANK ( [Users Reached Previous Step] ), 1 - [Step Conversion %] )
+
+Users Lost Before Step =
+[Users Reached Previous Step] - [Users Reached Step]
+
+% of Top of Funnel =
+DIVIDE (
+    [Users Reached Step],
+    CALCULATE ( [Users Reached Step], REMOVEFILTERS ( dim_step ), fact_step_reach[step_number] = 1 )
+)
+
+
+// ---------- Exit screens: "who left FROM this screen" ----------------------
+// Exit at step N = reached N, never reached N+1. Order Placed has no exits.
+
+Exits at Step =
+VAR _step = SELECTEDVALUE ( dim_step[step_number] )
+RETURN
+    IF ( _step < 8, CALCULATE ( [Sessions], fact_sessions[furthest_step] = _step ) )
+
+Exit Rate at Step =
+DIVIDE ( [Exits at Step], [Users Reached Step] )
+
+Abandoned Value at Step =
+VAR _step = SELECTEDVALUE ( dim_step[step_number] )
+RETURN
+    IF ( _step >= 2 && _step < 8,
+         CALCULATE ( [Abandoned Basket Value], fact_sessions[furthest_step] = _step ) )
+
+Abandoned Value at Step (Annualised) =
+DIVIDE ( [Abandoned Value at Step] * 365, [Days in Period] )
+
+// Highlights the worst checkout screen in any visual (conditional formatting > field value)
+Exit Bar Colour =
+VAR _worst =
+    MAXX (
+        TOPN (
+            1,
+            ADDCOLUMNS ( FILTER ( ALL ( dim_step ), dim_step[step_number] >= 3 && dim_step[step_number] <= 7 ),
+                         "@rate", [Exit Rate at Step] ),
+            [@rate], DESC
+        ),
+        dim_step[step_number]
+    )
+RETURN
+    IF ( SELECTEDVALUE ( dim_step[step_number] ) = _worst, "#EB6834", "#2A78D6" )
+
+// Dynamic headline for the overview page
+Biggest Leak Headline =
+VAR _t =
+    ADDCOLUMNS (
+        FILTER ( ALL ( dim_step ), dim_step[step_number] >= 3 && dim_step[step_number] <= 7 ),
+        "@rate", [Exit Rate at Step],
+        "@value", [Abandoned Value at Step (Annualised)]
+    )
+VAR _top = TOPN ( 1, _t, [@rate], DESC )
+RETURN
+    MAXX ( _top, dim_step[step_label] ) & " is the biggest leak: "
+        & FORMAT ( MAXX ( _top, [@rate] ), "0.0%" ) & " of users leave there ("
+        & FORMAT ( MAXX ( _top, [@value] ), "€#,0,K" ) & " of baskets a year)"
+
+
+// ---------- Step-specific exit rates (use with segment axes) --------------
+
+Checkout Start Exit % =
+DIVIDE (
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] = 4 ),
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 4 )
+)
+
+Delivery Details Exit % =
+DIVIDE (
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] = 5 ),
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 5 )
+)
+
+Order Review Exit % =
+DIVIDE (
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] = 6 ),
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 6 )
+)
+
+Payment Exit % =
+DIVIDE (
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] = 7 ),
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 7 )
+)
+
+Payment Error Rate =
+DIVIDE (
+    CALCULATE ( [Sessions], fact_sessions[saw_payment_error] = 1 ),
+    CALCULATE ( [Sessions], fact_sessions[furthest_step] >= 7 )
+)
+
+Avg Fee Ratio (Reached Review) =
+CALCULATE ( AVERAGE ( fact_sessions[fee_ratio] ), fact_sessions[furthest_step] >= 6 )
+
+// Index vs all sessions (100 = average). Great for segment tables.
+Cart Abandonment Index =
+VAR _all = CALCULATE ( [Cart Abandonment %], REMOVEFILTERS ( fact_sessions ) )
+RETURN DIVIDE ( [Cart Abandonment %], _all ) * 100
+
+
+// ---------- Opportunity sizing (Fix-It page) -------------------------------
+// Create a What-if parameter first: Modeling > New parameter > Numeric range
+//   Name: Gap Closure   Min 0  Max 1  Increment 0.05  Default 0.3
+// Power BI generates the table 'Gap Closure' and measure [Gap Closure Value].
+
+Recoverable GMV (Annual) =
+SUM ( opportunity_sizing[gmv_annual_full_closure_eur] ) * [Gap Closure Value]
+
+Recoverable Orders (Annual) =
+SUM ( opportunity_sizing[orders_recoverable_6m_full] ) * 365 / 183 * [Gap Closure Value]
+
+Recoverable GMV Label =
+"At " & FORMAT ( [Gap Closure Value], "0%" ) & " gap closure the 5 fixes recover "
+    & FORMAT ( [Recoverable GMV (Annual)], "€#,0,K" ) & " GMV / year"
+
+
+// ---------- Field parameter: one visual, five ways to slice ----------------
+// Modeling > New parameter > Fields, then replace the generated DAX with:
+//
+// Segment By = {
+//     ( "Platform",      NAMEOF ( fact_sessions[platform] ),         0 ),
+//     ( "Device",        NAMEOF ( fact_sessions[device_type] ),      1 ),
+//     ( "Category",      NAMEOF ( fact_sessions[primary_category] ), 2 ),
+//     ( "Time of Day",   NAMEOF ( fact_sessions[time_of_day] ),      3 ),
+//     ( "Customer Type", NAMEOF ( fact_sessions[customer_type] ),    4 )
+// }
